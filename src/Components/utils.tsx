@@ -1,9 +1,9 @@
-export const groupByBrand = (hotels: Array<{ brand: string }>) => {
-    return hotels.reduce((acc: Record<string, Array<{ brand: string }>>, hotel) => {
-      if (!acc[hotel.brand]) {
-        acc[hotel.brand] = [];
+export const groupByBrand = (hotels: Array<{ id: number,name: string, city: string, country: string }>) => {
+    return hotels.reduce((acc: Record<string, Array<{ name: string, city: string, country: string, id: number }>>, hotel) => {
+      if (!acc[hotel.name]) {
+        acc[hotel.name, hotel.city, hotel.country] = [];
       }
-      acc[hotel.brand].push(hotel);
+      acc[hotel.name, hotel.city, hotel.country].push(hotel);
       return acc;
     }, {});
   };
