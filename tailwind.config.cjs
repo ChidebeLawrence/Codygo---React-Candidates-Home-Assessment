@@ -2,55 +2,29 @@ module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}", "./public/index.html"],
   theme: {
     extend: {
-      // keyframes: {
-      //   fadeInZoomOut: {
-      //     '0%': {
-      //       opacity: '0',
-      //       transform: 'scale(1.2)',  // Slightly zoomed in at the start
-      //     },
-      //     '100%': {
-      //       opacity: '1',
-      //       transform: 'scale(1)',    // Zooms back out to normal size
-      //     },
-
-      //     fadeInZoomIn: {
-      //       '0%': {
-      //         opacity: '0',           // Start with opacity 0 (invisible)
-      //         transform: 'scale(0.8)', // Start slightly smaller
-      //       },
-      //       '100%': {
-      //         opacity: '1',           // Fade to fully visible
-      //         transform: 'scale(1)',   // Scale to original size
-      //       },
-      //     },
-      //   },
-      // },
-      // animation: {
-      //   fadeInZoomOut: 'fadeInZoomOut 0.5s ease-in-out', // Duration and easing for the effect
-      //     : 'fadeInZoomIn 0.5s ease-in-out', // Duration and easing for the effect
-      // },
-
       keyframes: {
         fadeInZoomOut: {
           '0%': {
             opacity: '0',
-            transform: 'scale(1.2)',  // Slightly zoomed in at the start
+            transform: 'scale(1.2)',
           },
           '100%': {
             opacity: '1',
-            transform: 'scale(1)',    // Zooms back out to normal size
+            transform: 'scale(1)',
           },
         },
+
         fadeInZoomIn: {
           '0%': {
-            opacity: '0',           // Start with opacity 0 (invisible)
-            transform: 'scale(0.8)', // Start slightly smaller
+            opacity: '0',
+            transform: 'scale(0.8)',
           },
           '100%': {
-            opacity: '1',           // Fade to fully visible
-            transform: 'scale(1)',   // Scale to original size
+            opacity: '1',
+            transform: 'scale(1)',
           },
         },
+
         slideInLeft: {
           '0%': {
             transform: 'translateX(-100%)',
@@ -61,6 +35,7 @@ module.exports = {
             opacity: '1',
           },
         },
+
         slideInRight: {
           '0%': {
             transform: 'translateX(100%)',
@@ -71,17 +46,19 @@ module.exports = {
             opacity: '1',
           },
         },
+
         fadeOutZoomOut: {
           '0%': {
             opacity: '1',
-            transform: 'scale(1)',  // Normal size at the start
+            transform: 'scale(1)',
           },
           '100%': {
             opacity: '0',
-            transform: 'scale(0.8)', // Zooms out slightly
+            transform: 'scale(0.8)',
           },
         },
       },
+
       animation: {
         fadeInZoomOut: 'fadeInZoomOut 0.5s ease-in-out',
         fadeInZoomIn: 'fadeInZoomIn 0.5s ease-in-out',
