@@ -12,14 +12,70 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />}>
-          <Route index element={<HotelListPage />} />
-          <Route path="/hotels" element={<HotelListPage />} />
-          <Route path="/create-hotel" element={<HotelForm />} />
-          <Route path="/update/:id" element={<EditHotel />} />
-          <Route path="/brands" element={<BrandListPage />} />
-          <Route path="/create-brand" element={<BrandForm />} />
-          <Route path="/update-brand/:id" element={<EditBrand />} />
+        <Route
+          path="/"
+          element={
+            <div className="animate-fadeInZoomOut transition-all duration-500">
+              <Home />
+            </div>
+          }
+        >
+          <Route
+            index
+            element={
+              <div className="animate-fadeInZoomIn transition-all duration-500">
+                <HotelListPage />
+              </div>
+            }
+          />
+          <Route
+            path="/hotels"
+            element={
+              <div className="animate-slideInLeft transition-all duration-500">
+                <HotelListPage />
+              </div>
+            }
+          />
+          <Route
+            path="/brands"
+            element={
+              <div className="animate-slideInRight transition-all duration-500">
+                <BrandListPage />
+              </div>
+            }
+          />
+          <Route
+            path="/create-hotel"
+            element={
+              <div className="animate-fadeInZoomIn transition-all duration-500">
+                <HotelForm />
+              </div>
+            }
+          />
+          <Route
+            path="/update/:id"
+            element={
+              <div className="animate-fadeInZoomIn transition-all duration-500">
+                <EditHotel />
+              </div>
+            }
+          />
+          <Route
+            path="/create-brand"
+            element={
+              <div className="animate-fadeInZoomIn transition-all duration-500">
+                <BrandForm />
+              </div>
+            }
+          />
+          <Route
+            path="/update-brand/:id"
+            element={
+              <div className="animate-fadeInZoomIn transition-all duration-500">
+                <EditBrand />
+              </div>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

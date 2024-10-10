@@ -111,7 +111,6 @@ const HotelForm: React.FC = () => {
             Address
           </label>
         </div>
-      </form>
 
       <div className="relative z-0 w-full mb-5 group">
         <input
@@ -131,13 +130,14 @@ const HotelForm: React.FC = () => {
         </label>
       </div>
 
-      <div className="flex flex-col md:flex-row md:gap-2">
+      <div className="flex flex-col sm:flex-row justify-center gap-2">
         <button
           type="submit"
           className="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900"
         >
           Create
         </button>
+
         <button
           type="button"
           onClick={handleCancel}
@@ -146,6 +146,7 @@ const HotelForm: React.FC = () => {
           Cancel
         </button>
       </div>
+      </form>
     </div>
   );
 };

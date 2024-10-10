@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -34,7 +34,7 @@ interface GeocodedHotel extends Hotel {
 
 const Home: React.FC = () => {
   const hotels = useSelector((state: RootState) => state.hotels.hotels);
-  const groupedHotels = groupByBrand(hotels);
+  const groupedHotels = useMemo(() => groupByBrand(hotels), [hotels]);
 
   const [geocodedHotels, setGeocodedHotels] = useState<GeocodedHotel[]>([]);
   const [only, setOnly] = useState(false);
@@ -73,84 +73,75 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     setOnly(
-      location.pathname.includes("/update/") || 
-      location.pathname.includes("/create-hotel") || 
-      location.pathname.includes("/create-brand")
+      location.pathname.includes("/update/") ||
+        location.pathname.includes("/create-hotel") ||
+        location.pathname.includes("/create-brand")
     );
   }, [location.pathname]);
 
   return (
-    <div className="bg-[#111827] text-white w-full max-w-4xl mx-auto h-auto px-4 py-4">
-      {!only     && (
-        <div className="bg-[#111827] text-white w-full sm:w-1/2 mx-auto h-auto px-6 py-4 flex flex-col justify-center sm:flex-row gap-4">
-          <Link
-            to="/hotels"
-            className="font-bold text-lg text-center w-full sm:w-auto"
-          >
-            Hotels
-          </Link>
-
-          <Link
-            to="/brands"
-            className="font-bold text-lg text-center w-full sm:w-auto"
-          >
-            Brands
-          </Link>
-        </div>
-      )}
+    <div className="bg-[#111827] text-white w-full h-auto px-10 py-4 shadow-xl">
+      <div className="bg-[#111827] text-white w-full sm:w-1/2 mx-auto h-auto px-6 py-4 flex flex-col justify-center sm:flex-row gap-4">
+        <Link
+          to="/hotels"
+          className="font-bold text-lg text-center w-full sm:w-auto"
+        >
+          Hotels
+        </Link>
+        <Link
+          to="/brands"
+          className="font-bold text-lg text-center w-full sm:w-auto"
+        >
+          Brands
+        </Link>
+      </div>
 
       <Outlet />
 
-      {!only     && (
-        <div>
-          <h2 className="font-bold text-lg mt-6">Grouped Hotels by Brand</h2>
-          {Object.keys(groupedHotels).length === 0 ? (
-            <p>No hotels available.</p>
-          ) : (
-            Object.keys(groupedHotels).map((brand) => (
-              <div key={brand} className="mb-4">
-                <h3 className="font-bold">{brand}</h3>
-                <ul>
-                  {groupedHotels[brand].map((hotel) => (
-                    <li key={hotel.id} className="text-gray-700">
-                      {hotel.name} - {hotel.city}, {hotel.country}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))
-          )}
-        </div>
-      )}
+      <div>
+        <h2 className="font-bold text-lg mt-6">Grouped Hotels by Brand</h2>
+        {Object.keys(groupedHotels).length === 0 ? (
+          <p>No hotels available.</p>
+        ) : (
+          Object.keys(groupedHotels).map((brand) => (
+            <div key={brand} className="mb-4">
+              <h3 className="font-bold">{brand}</h3>
+              <ul>
+                {groupedHotels[brand].map((hotel) => (
+                  <li key={hotel.id} className="text-gray-700">
+                    {hotel.name} - {hotel.city}, {hotel.country}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        )}
+      </div>
 
-      {!only     && (
-        <div className="mt-6">
-          <h2 className="font-bold text-lg mb-4">Hotel Locations on Map</h2>
-          <MapContainer
-            center={defaultCenter}
-            zoom={2}
-            scrollWheelZoom={false}
-            className="h-96 w-full"
-          >
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            />
-            {geocodedHotels.map((hotel) => (
-              <Marker
-                key={hotel.id}
-                position={[hotel.latitude, hotel.longitude]}
-              >
-                <Popup>
-                  <strong>{hotel.name}</strong>
-                  <br />
-                  {hotel.city}, {hotel.country}
-                </Popup>
-              </Marker>
-            ))}
-          </MapContainer>
-        </div>
-      )}
+      <div className="my-6 mb-10">
+        <h2 className="font-bold text-lg mb-4">Hotel Locations on Map</h2>
+        <MapContainer
+          center={defaultCenter}
+          zoom={2}
+          scrollWheelZoom={false}
+          className="h-96 w-full"
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          {geocodedHotels.map((hotel) => (
+            <Marker key={hotel.id} position={[hotel.latitude, hotel.longitude]}>
+              <Popup>
+                <strong>{hotel.name}</strong>
+                <strong>{hotel.address}</strong>
+                <br />
+                {hotel.city}, {hotel.country}
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
+      </div>
     </div>
   );
 };
