@@ -6,8 +6,6 @@ export const HotelList = [
     country: "USA",
     address: "123 Main St, New York, NY 10001",
     brand: "Luxury Stay",
-    latitude: 51.5074,
-    longitude: -0.1278,
   },
   {
     id: 2,
@@ -16,8 +14,6 @@ export const HotelList = [
     country: "USA",
     address: "456 Ocean Dr, Miami, FL 33139",
     brand: "Coastal Retreats",
-    latitude: 51.5074,
-    longitude: -0.1278,
   },
   {
     id: 3,
@@ -26,8 +22,6 @@ export const HotelList = [
     country: "USA",
     address: "789 Mountain Rd, Aspen, CO 81611",
     brand: "Nature's Wonders",
-    latitude: 51.5074,
-    longitude: -0.1278,
   },
   {
     id: 4,
@@ -36,8 +30,6 @@ export const HotelList = [
     country: "UK",
     address: "101 Queen St, London EC1A 1BB",
     brand: "Urban Life",
-    latitude: 51.5074,
-    longitude: -0.1278,
   },
   {
     id: 5,
@@ -46,8 +38,6 @@ export const HotelList = [
     country: "UAE",
     address: "202 Palm Blvd, Dubai 00000",
     brand: "Exotic Getaways",
-    latitude: 51.5074,
-    longitude: -0.1278,
   },
 ];
 
@@ -59,8 +49,6 @@ export interface HotelInterface {
   address: string;
   brand: string;
   brandId: string | null;
-  latitude: number,
-  longitude: number,
 }
 
 export const BrandList = [

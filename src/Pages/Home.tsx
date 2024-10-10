@@ -79,6 +79,9 @@ const Home: React.FC = () => {
     );
   }, [location.pathname]);
 
+  only
+  
+
   return (
     <div className="bg-[#111827] text-white w-full h-auto px-10 py-4 shadow-xl">
       <div className="bg-[#111827] text-white w-full sm:w-1/2 mx-auto h-auto px-6 py-4 flex flex-col justify-center sm:flex-row gap-4">
@@ -109,7 +112,7 @@ const Home: React.FC = () => {
               <ul>
                 {groupedHotels[brand].map((hotel) => (
                   <li key={hotel.id} className="text-gray-700">
-                    {hotel.name} - {hotel.city}, {hotel.country}
+                    {hotel.brand} - {hotel.city}, {hotel.country}
                   </li>
                 ))}
               </ul>
@@ -121,7 +124,7 @@ const Home: React.FC = () => {
       <div className="my-6 mb-10">
         <h2 className="font-bold text-lg mb-4">Hotel Locations on Map</h2>
         <MapContainer
-          center={defaultCenter} // Correctly typed [number, number]
+          center={defaultCenter}
           zoom={2}
           scrollWheelZoom={false}
           className="h-96 w-full"
