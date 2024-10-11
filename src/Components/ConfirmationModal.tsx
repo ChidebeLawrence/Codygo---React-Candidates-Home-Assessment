@@ -11,32 +11,33 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onClose,
   onConfirm,
 }) => {
-  if (!isOpen) return null;
-
   const [isZoomOut, setIsZoomOut] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  
   useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
     const handleOutsideClick = (event: MouseEvent) => {
       if (
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
       ) {
-        onClose();
+        handleCancelClick();
       }
     };
 
     if (isOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
-      document.body.style.overflow = "hidden";
     }
 
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
-      document.body.style.overflow = "";
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   const handleCancelClick = () => {
     setIsZoomOut(true);
@@ -58,7 +59,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 transition-all duration-500 ${
+      className={`absolute inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 transition-all duration-500 ${
         isZoomOut ? "animate-fadeOutZoomOut" : "animate-fadeInZoomIn"
       }`}
     >

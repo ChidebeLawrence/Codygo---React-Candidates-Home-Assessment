@@ -1,70 +1,84 @@
 module.exports = {
-  content: ["./src/**/*.{js,ts,jsx,tsx}", "./public/index.html"],
+  /** @type {import('tailwindcss').Config} */
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./public/index.html",
+  ],
   theme: {
     extend: {
       keyframes: {
         fadeInZoomOut: {
-          '0%': {
-            opacity: '0',
-            transform: 'scale(1.2)',
+          "0%": {
+            opacity: "0",
+            transform: "scale(1.2)",
           },
-          '100%': {
-            opacity: '1',
-            transform: 'scale(1)',
+          "100%": {
+            opacity: "1",
+            transform: "scale(1)",
           },
         },
 
         fadeInZoomIn: {
-          '0%': {
-            opacity: '0',
-            transform: 'scale(0.8)',
+          "0%": {
+            opacity: "0",
+            transform: "scale(0.8)",
           },
-          '100%': {
-            opacity: '1',
-            transform: 'scale(1)',
+          "100%": {
+            opacity: "1",
+            transform: "scale(1)",
           },
         },
 
         slideInLeft: {
-          '0%': {
-            transform: 'translateX(-100%)',
-            opacity: '0',
+          "0%": {
+            transform: "translateX(-100%)",
+            opacity: "0",
           },
-          '100%': {
-            transform: 'translateX(0)',
-            opacity: '1',
+          "100%": {
+            transform: "translateX(0)",
+            opacity: "1",
           },
         },
 
         slideInRight: {
-          '0%': {
-            transform: 'translateX(100%)',
-            opacity: '0',
+          "0%": {
+            transform: "translateX(100%)",
+            opacity: "0",
           },
-          '100%': {
-            transform: 'translateX(0)',
-            opacity: '1',
+          "100%": {
+            transform: "translateX(0)",
+            opacity: "1",
           },
         },
 
         fadeOutZoomOut: {
-          '0%': {
-            opacity: '1',
-            transform: 'scale(1)',
+          "0%": {
+            opacity: "1",
+            transform: "scale(1)",
           },
-          '100%': {
-            opacity: '0',
-            transform: 'scale(0.8)',
+          "100%": {
+            opacity: "0",
+            transform: "scale(0.8)",
           },
+        },
+        slideInDown: {
+          '0%': { transform: 'translateY(-100%)', opacity: 0 },
+          '100%': { transform: 'translateY(0)', opacity: 1 },
+        },
+        slideInUp: {
+          '0%': { transform: 'translateY(100%)', opacity: 0 },
+          '100%': { transform: 'translateY(0)', opacity: 1 },
         },
       },
 
       animation: {
-        fadeInZoomOut: 'fadeInZoomOut 0.5s ease-in-out',
-        fadeInZoomIn: 'fadeInZoomIn 0.5s ease-in-out',
-        slideInLeft: 'slideInLeft 0.5s ease-in-out',
-        slideInRight: 'slideInRight 0.5s ease-in-out',
-        fadeOutZoomOut: 'fadeOutZoomOut 0.5s ease-in-out',
+        fadeInZoomOut: "fadeInZoomOut 0.5s ease-in-out",
+        fadeInZoomIn: "fadeInZoomIn 0.5s ease-in-out",
+        slideInLeft: "slideInLeft 0.5s ease-in-out",
+        slideInRight: "slideInRight 0.5s ease-in-out",
+        fadeOutZoomOut: "fadeOutZoomOut 0.5s ease-in-out",
+        slideInDown: 'slideInDown 0.5s ease-in-out',
+        slideInUp: 'slideInUp 0.5s ease-in-out',
       },
     },
   },

@@ -14,9 +14,10 @@ const HotelListPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedHotelId, setSelectedHotelId] = useState<number | null>(null);
 
-  const filteredHotels = hotels.filter((hotel) =>
-    hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    hotel.brand.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredHotels = hotels.filter(
+    (hotel) =>
+      hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      hotel.brand.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleDeleteClick = (id: number) => {
@@ -43,7 +44,7 @@ const HotelListPage: React.FC = () => {
   return (
     <div className="container mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-center bg-gray-800 text-white rounded-md p-4">
-        <div className="font-bold text-2xl">Hotels</div>
+        <div className="font-bold text-2xl">Hotel List</div>
 
         <input
           type="text"
@@ -63,11 +64,9 @@ const HotelListPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="font-bold text-lg py-4">Hotel List</div>
-
       <div className="relative max-h-[85vh] overflow-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-400">
+          <thead className="text-xs uppercase bg-gray-700 text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-4">
                 Name
@@ -76,6 +75,7 @@ const HotelListPage: React.FC = () => {
               <th className="px-6 py-4">Country</th>
               <th className="px-6 py-4">Address</th>
               <th className="px-6 py-4">Brand</th>
+              <th className="px-6 py-4">Rank</th>
               <th className="px-6 py-4">Action</th>
             </tr>
           </thead>
@@ -85,11 +85,11 @@ const HotelListPage: React.FC = () => {
               filteredHotels.map((hotel) => (
                 <tr
                   key={hotel.id}
-                  className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                  className="odd:bg-gray-900 even:bg-gray-800 border-b border-gray-700"
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium whitespace-nowrap text-white"
                   >
                     {hotel.name}
                   </th>
@@ -97,16 +97,17 @@ const HotelListPage: React.FC = () => {
                   <td className="px-6 py-4">{hotel.country}</td>
                   <td className="px-6 py-4">{hotel.address}</td>
                   <td className="px-6 py-4">{hotel.brand}</td>
+                  <td className="px-6 py-4">{hotel.ranking}</td>
                   <td className="px-6 py-4 flex gap-4">
                     <Link
                       to={`/update/${hotel.id}`}
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      className="font-medium text-blue-500 hover:underline"
                     >
                       Edit
                     </Link>
                     <button
                       onClick={() => handleDeleteClick(hotel.id)}
-                      className="font-medium text-red-600 dark:text-red-500 hover:underline"
+                      className="font-medium text-red-500 hover:underline"
                     >
                       Delete
                     </button>

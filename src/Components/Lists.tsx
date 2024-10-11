@@ -6,6 +6,7 @@ export const HotelList = [
     country: "USA",
     address: "123 Main St, New York, NY 10001",
     brand: "Luxury Stay",
+    ranking: 5,
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const HotelList = [
     country: "USA",
     address: "456 Ocean Dr, Miami, FL 33139",
     brand: "Coastal Retreats",
+    ranking: 5,
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ export const HotelList = [
     country: "USA",
     address: "789 Mountain Rd, Aspen, CO 81611",
     brand: "Nature's Wonders",
+    ranking: 5,
   },
   {
     id: 4,
@@ -30,6 +33,7 @@ export const HotelList = [
     country: "UK",
     address: "101 Queen St, London EC1A 1BB",
     brand: "Urban Life",
+    ranking: 5,
   },
   {
     id: 5,
@@ -38,17 +42,19 @@ export const HotelList = [
     country: "UAE",
     address: "202 Palm Blvd, Dubai 00000",
     brand: "Exotic Getaways",
+    ranking: 5,
   },
 ];
 
 export interface HotelInterface {
-  id: string;
+  id: number;
   name: string;
   city: string;
   country: string;
   address: string;
   brand: string;
-  brandId: string | null;
+  brandId?: number | null;
+  ranking: number,
 }
 
 export const BrandList = [

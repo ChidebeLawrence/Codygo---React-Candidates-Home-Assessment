@@ -41,28 +41,26 @@ const BrandListPage: React.FC = () => {
   return (
     <div className="container mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-center bg-gray-800 text-white rounded-md p-4">
-      <div className="font-bold text-2xl">Brands</div>
+        <div className="font-bold text-2xl">Brand List</div>
 
-          <input
-            type="text"
-            placeholder="Search Brand"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="mt-4 md:mt-0 px-4 py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          <button
-            onClick={handleNavigate}
-            className="mt-4 md:mt-0 px-4 py-2 bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none"
-          >
-            + Add New Brand
-          </button>
+        <input
+          type="text"
+          placeholder="Search Brand"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="mt-4 md:mt-0 px-4 py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          onClick={handleNavigate}
+          className="mt-4 md:mt-0 px-4 py-2 bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none"
+        >
+          + Add New Brand
+        </button>
       </div>
 
-      <div className="font-bold text-lg py-4">Brand List</div>
-
       <div className="relative max-h-[85vh] overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-400">
+          <thead className="text-xs uppercase bg-gray-700 text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-4">
                 Name
@@ -77,11 +75,11 @@ const BrandListPage: React.FC = () => {
               filteredBrands.map((brand) => (
                 <tr
                   key={brand.brandId}
-                  className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                  className="odd:bg-gray-900 even:bg-gray-800 border-b border-gray-700"
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium whitespace-nowrap text-white"
                   >
                     {brand.name}
                   </th>
@@ -90,13 +88,13 @@ const BrandListPage: React.FC = () => {
                   <td className="px-6 py-4 flex gap-4">
                     <Link
                       to={`/update-brand/${brand.brandId}`}
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      className="font-medium text-blue-500 hover:underline"
                     >
                       Edit
                     </Link>
                     <button
                       onClick={() => handleDeleteClick(brand.brandId)}
-                      className="font-medium text-red-600 dark:text-red-500 hover:underline"
+                      className="font-medium text-red-500 hover:underline"
                     >
                       Delete
                     </button>

@@ -3,12 +3,13 @@ import { HotelList } from "../Components/Lists";
 
 interface Hotel {
   id: number;
-  brandId?: number;
+  brandId?: number | null;
   name: string;
   city: string;
   country: string;
   address: string;
   brand: string;
+  ranking: number;
 }
 
 interface HotelsState {
@@ -40,8 +41,19 @@ const hotelsSlice = createSlice({
         localStorage.setItem("hotels", JSON.stringify(state.hotels));
       }
     },
+    updateHotelRanking: (
+      state,
+      action: PayloadAction<{ id: number; ranking: number }>
+    ) => {
+      const index = state.hotels.findIndex((h) => h.id === action.payload.id);
+      if (index !== -1) {
+        state.hotels[index].ranking = action.payload.ranking;
+        localStorage.setItem("hotels", JSON.stringify(state.hotels));
+      }
+    },
   },
 });
 
-export const { addHotel, deleteHotel, updateHotel } = hotelsSlice.actions;
+export const { addHotel, deleteHotel, updateHotel, updateHotelRanking } =
+  hotelsSlice.actions;
 export default hotelsSlice.reducer;

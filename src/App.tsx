@@ -7,8 +7,17 @@ import BrandListPage from "./Pages/BrandListPage";
 import BrandForm from "./Components/CreateBrand";
 import Home from "./Pages/Home";
 import EditBrand from "./Components/EditBrand";
+import RankedHotel from "./Pages/RankedHotel";
+import { HotelInterface } from "./Components/Lists";
+import { useSelector } from "react-redux";
+import { RootState } from "./redux/store";
+import GroupedHotel from "./Pages/GroupedHotel";
 
 const App: React.FC = () => {
+  const hotels: HotelInterface[] = useSelector(
+    (state: RootState) => state.hotels.hotels
+  );
+
   return (
     <BrowserRouter>
       <Routes>
@@ -41,6 +50,22 @@ const App: React.FC = () => {
             element={
               <div className="animate-slideInRight transition-all duration-500">
                 <BrandListPage />
+              </div>
+            }
+          />
+          <Route
+            path="/rank"
+            element={
+              <div className="animate-slideInDown transition-all duration-500">
+                <RankedHotel hotels={hotels} />
+              </div>
+            }
+          />
+          <Route
+            path="/group"
+            element={
+              <div className="animate-slideInUp transition-all duration-500">
+                <GroupedHotel />
               </div>
             }
           />

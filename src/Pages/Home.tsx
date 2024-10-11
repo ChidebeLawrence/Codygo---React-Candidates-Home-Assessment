@@ -1,22 +1,20 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, Outlet } from "react-router-dom";
+import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { groupByBrand } from "../Components/utils";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
-import markerIcon from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import { HotelInterface } from "../Components/Lists";
 
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: markerIcon2x,
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
+  iconRetinaUrl: "",
+  iconUrl: "",
+  shadowUrl: "",
 });
 
-const GEOCODE_API_KEY = "341cabb775fa4ef388043ed3ab701098";
+const GEOCODE_API_KEY = "9f93f0160261446cb4b4d107d255fe61";
 
 interface Hotel {
   id: number;
@@ -30,14 +28,15 @@ interface Hotel {
 interface GeocodedHotel extends Hotel {
   latitude: number;
   longitude: number;
+  countryCode: string;
 }
 
 const Home: React.FC = () => {
-  const hotels = useSelector((state: RootState) => state.hotels.hotels);
-  const groupedHotels = useMemo(() => groupByBrand(hotels), [hotels]);
+  const hotels: HotelInterface[] = useSelector(
+    (state: RootState) => state.hotels.hotels
+  );
 
   const [geocodedHotels, setGeocodedHotels] = useState<GeocodedHotel[]>([]);
-  const [only, setOnly] = useState(false);
 
   const geocodeAddress = async (
     hotel: Hotel
@@ -51,7 +50,8 @@ const Home: React.FC = () => {
 
     if (data.results && data.results.length > 0) {
       const { lat, lng } = data.results[0].geometry;
-      return { ...hotel, latitude: lat, longitude: lng };
+      const countryCode = data.results[0].components.country_code.toUpperCase();
+      return { ...hotel, latitude: lat, longitude: lng, countryCode };
     }
     return null;
   };
@@ -69,57 +69,63 @@ const Home: React.FC = () => {
     geocodeHotels();
   }, [hotels]);
 
-  const defaultCenter: [number, number] = [51.505, -0.09]; // Type the center as [number, number]
+  const defaultCenter: [number, number] = [51.505, -0.09];
 
-  useEffect(() => {
-    setOnly(
-      location.pathname.includes("/update/") ||
-        location.pathname.includes("/create-hotel") ||
-        location.pathname.includes("/create-brand")
-    );
-  }, [location.pathname]);
-
-  only
-  
+  const createFlagIcon = (countryCode: string) => {
+    return new L.Icon({
+      iconUrl: `https://flagcdn.com/24x18/${countryCode.toLowerCase()}.png`,
+      iconSize: [24, 18],
+      iconAnchor: [12, 18],
+      popupAnchor: [0, -18],
+    });
+  };
 
   return (
     <div className="bg-[#111827] text-white w-full h-auto px-10 py-4 shadow-xl">
       <div className="bg-[#111827] text-white w-full sm:w-1/2 mx-auto h-auto px-6 py-4 flex flex-col justify-center sm:flex-row gap-4">
-        <Link
+        <NavLink
           to="/hotels"
-          className="font-bold text-lg text-center w-full sm:w-auto"
+          className={({ isActive }) =>
+            `font-bold text-lg text-center w-full sm:w-auto ${
+              isActive ? "text-blue-500" : "text-white"
+            }`
+          }
         >
           Hotels
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/brands"
-          className="font-bold text-lg text-center w-full sm:w-auto"
+          className={({ isActive }) =>
+            `font-bold text-lg text-center w-full sm:w-auto ${
+              isActive ? "text-blue-500" : "text-white"
+            }`
+          }
         >
           Brands
-        </Link>
+        </NavLink>
+        <NavLink
+          to="/rank"
+          className={({ isActive }) =>
+            `font-bold text-lg text-center w-full sm:w-auto ${
+              isActive ? "text-blue-500" : "text-white"
+            }`
+          }
+        >
+          Rank
+        </NavLink>
+        <NavLink
+          to="/group"
+          className={({ isActive }) =>
+            `font-bold text-lg text-center w-full sm:w-auto ${
+              isActive ? "text-blue-500" : "text-white"
+            }`
+          }
+        >
+          Group
+        </NavLink>
       </div>
 
       <Outlet />
-
-      <div>
-        <h2 className="font-bold text-lg mt-6">Grouped Hotels by Brand</h2>
-        {Object.keys(groupedHotels).length === 0 ? (
-          <p>No hotels available.</p>
-        ) : (
-          Object.keys(groupedHotels).map((brand) => (
-            <div key={brand} className="mb-4">
-              <h3 className="font-bold">{brand}</h3>
-              <ul>
-                {groupedHotels[brand].map((hotel) => (
-                  <li key={hotel.id} className="text-gray-700">
-                    {hotel.brand} - {hotel.city}, {hotel.country}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))
-        )}
-      </div>
 
       <div className="my-6 mb-10">
         <h2 className="font-bold text-lg mb-4">Hotel Locations on Map</h2>
@@ -134,9 +140,14 @@ const Home: React.FC = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
           {geocodedHotels.map((hotel) => (
-            <Marker key={hotel.id} position={[hotel.latitude, hotel.longitude]}>
+            <Marker
+              key={hotel.id}
+              position={[hotel.latitude, hotel.longitude]}
+              icon={createFlagIcon(hotel.countryCode)}
+            >
               <Popup>
                 <strong>{hotel.name}</strong>
+                <br />
                 <strong>{hotel.address}</strong>
                 <br />
                 {hotel.city}, {hotel.country}
